@@ -64,7 +64,7 @@
                                                         .  $salary . ")";
                     if ($conn ->query($sql) === TRUE) {
                         //echo "<div>New record created successfully</div>";
-                        header("Location: ../index.php?upload_success1")
+                        header("Location: ../index.php?upload_success1");
                     } else {
                         echo "<div>Error on line "  . $lineNum . ": " . $sql . "<br>" . $conn ->error . "</div>";
                         break;
@@ -102,7 +102,7 @@
                                                         . $ticket_revenue . ")";
                     if ($conn ->query($sql) === TRUE) {
                         //echo "<div>New record created successfully</div>";
-                        header("Location: ../index.php?upload_success2")
+                        header("Location: ../index.php?upload_success2");
                     } else {
                         echo "<div>Error on line "  . $lineNum . ": " . $sql . "<br>" . $conn ->error . "</div>";
                         break;
@@ -132,7 +132,7 @@
                                                         . $GameID . ")";
                     if ($conn ->query($sql) === TRUE) {
                         //echo "<div>New record created successfully</div>";
-                        header("Location: ../index.php?upload_success3")
+                        header("Location: ../index.php?upload_success3");
                         
                     } else {
                         echo "<div>Error on line "  . $lineNum . ": " . $sql . "<br>" . $conn ->error . "</div>";
