@@ -98,7 +98,7 @@
 															.  $totalyards . "," 
 															.  $salary . ")";
 						if ($GLOBALS['conn']->query($sql) === TRUE) {
-							echo "<div>New record created successfully</div>";
+							//echo "<div>New record created successfully</div>";
 						} else {
 							echo "<div>Error on line "  . $lineNum . ": " . $sql . "<br>" . $GLOBALS['conn']->error . "</div>";
 							break;
@@ -216,6 +216,7 @@
 			//Read File
 			$myfile = fopen($target_file, "r") or die("Unable to open file!");
 			if ($myfile) {
+				echo "Here";
 				//Look at the text file name and check what table it should go include 'file' 
 				$myFileName = basename($_FILES["fileToUpload"]["name"]);
 				if($myFileName == "Players.txt" || $myFileName == "players.txt" || $myFileName == "player.txt" || $myFileName == "Player.txt"){
@@ -257,9 +258,9 @@
 					$sql = substr_replace($sql, ";", (strlen($sql) - 1));
 					//echo ($sql);
 					if ($GLOBALS['conn']->query($sql) === TRUE) {
-						echo "<div>New record created successfully</div>";
+						//echo "<div>New record created successfully</div>";
 					} else {
-						echo "<div>Error: " . $sql . "<br>" . $GLOBALS['conn']->error . "</div>";
+						echo "<div>Error: " . "<br>" . $GLOBALS['conn']->error . "</div>";
 					}
 				}else if($myFileName == "Games.txt" || $myFileName == "games.txt" || $myFileName == "Game.txt" || $myFileName == "game.txt"){
 					$lineNum = 1;
@@ -277,7 +278,7 @@
 						//Attributes after split
 						$GameID = $GamesAttributes[0];
 						$date = $GamesAttributes[1];
-						$stadium = $GamesAttributes[2];
+						$stadium = $GamesAttributes[2];   
 						$result = $GamesAttributes[3];
 						$attendance = $GamesAttributes[4];
 						$ticket_revenue = $GamesAttributes[5];
@@ -411,6 +412,8 @@
 				}
 				/* free result set */
 				mysqli_free_result($result);
+			}else{
+				echo("<div style='padding:50px;'>Error: " . mysqli_error($GLOBALS['conn']) . "</div>");
 			}
 			echo("Exit executeSqlQuery function");
 		}
@@ -504,7 +507,5 @@
 
 		</form>
 	</div>
-		
-
 </body>
 </html>
