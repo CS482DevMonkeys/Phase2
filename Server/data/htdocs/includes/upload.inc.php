@@ -296,7 +296,7 @@
 
                 $sql = substr_replace($sql, ";", (strlen($sql) - 1));
                 if ($conn ->query($sql) === TRUE) {
-                    header("Location: ../index.php?buckload_success3")
+                    header("Location: ../index.php?buckload_success3");
                     //echo "<div>New record created successfully</div>";
                 } else {
                     echo "<div>Error: " . $sql . "<br>" . $conn ->error . "</div>";
