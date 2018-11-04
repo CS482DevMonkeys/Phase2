@@ -1,34 +1,98 @@
-<?php
-$target_dir = "uploads/";
-$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
-//echo basename($_FILES["fileToUpload"]["name"]);//TestFile.txt
-$uploadOk = 1;
-$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
 
-// Check file size
-if ($_FILES["fileToUpload"]["size"] > 500000) {
-    echo "Sorry, your file is too large.";
-    $uploadOk = 0;
-}
-// Allow certain file formats
-if($imageFileType != "txt") {
-    echo "Sorry, only txt";
-    $uploadOk = 0;
-}
-// Check if $uploadOk is set to 0 by an error
-if ($uploadOk == 0) {
-    echo "Sorry, your file was not uploaded.";
-// if everything is ok, try to upload file
-} else {
-    if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
-        echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
-    } else {
-        echo "Sorry, there was an error uploading your file.";
-    }
-}
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Upload</title>
 
-//Read File
-$myfile = fopen($target_file, "r") or die("Unable to open file!");
-echo fread($myfile,filesize($target_file));
-fclose($myfile);
-?>
+        <!-- Bootstrap CSS -->
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+    </head>
+    <body>
+        <?php
+            require "header.php";
+        ?>
+        <script>
+            $(document).ready(function(){
+                $(".btn-group > .btn").click(function(){
+                    $("#SingleButton").val();
+                    $(".btn-group > .btn").removeClass("active");
+                    $(this).addClass("active");
+                    $(".btn-group > .btn").attr("value", 0);
+                    $(this).attr("value", 1);
+                    var hiddenInputValue = $(this).attr("id");
+                    if(hiddenInputValue == "SingleButton"){
+                        $("#SingleButtonValue").attr("value", 1);
+                        $("#BulkButtonValue").attr("value", 0);
+                        var SingleButtonValue = $("#SingleButtonValue").attr("value");
+                        var BulkButtonValue = $("#BulkButtonValue").attr("value");
+                        alert("hiddenInputValue: " + hiddenInputValue + "\nSingleButtonValue: " + SingleButtonValue + "\nBulkButtonValue: " + BulkButtonValue);
+                    }else if(hiddenInputValue == "BulkButton"){
+                        $("#SingleButtonValue").attr("value", 0);
+                        $("#BulkButtonValue").attr("value", 1);
+                        var SingleButtonValue = $("#SingleButtonValue").attr("value");
+                        var BulkButtonValue = $("#BulkButtonValue").attr("value");
+                        alert("hiddenInputValue: " + hiddenInputValue + "\nSingleButtonValue: " + SingleButtonValue + "\nBulkButtonValue: " + BulkButtonValue);
+                    };
+                });
+            });
+        </script>
+    
+        <div class="container">
+        <h1 class="text-center">Upload</h1>
+            <?php
+                 if(isset($_GET['upload_success1'])){
+                    echo '<div>New record created successfully, Overalltime: $overall_time</div>';
+                }
+                else if(isset($_GET['upload_success2'])){
+                    echo '<div>New record created successfully Overall time: $overall_time</div>';
+                }
+                else if(isset($_GET['upload_success3'])){
+                    echo '<div>New record created successfully Overall time: $overall_time</div>';
+                }  
+                else if(isset($_GET['buckload_success1'])){
+                    echo '<div>New record created successfully Overall time: $overall_time</div>';
+                }  
+                else if(isset($_GET['buckload_success2'])){
+                    echo '<div>New record created successfully Overall time: $overall_time</div>';
+                }  
+                else if(isset($_GET['buckload_success3'])){
+                    echo '<div>New record created successfully Overall time: $overall_time</div>';
+                }  
+            ?>
+            <form action="includes/upload.inc.php" method="post" enctype="multipart/form-data">
+                <div class="btn-group" style="padding:20px;">
+                        <button type="button" id="BulkButton" name="BulkButton" class="btn btn-primary active" value="0">Bulk Loading</button>
+                        <button type="button" id="SingleButton" name="SingleButton" class="btn btn-primary" value="1">Single Insertion</button>
+                        
+                </div>
+                <input type="hidden" id="SingleButtonValue" name="SingleButtonValue" value="1" />
+                    <input type="hidden" id="BulkButtonValue" name="BulkButtonValue" value="0" />
+                
+                    Select image to upload:
+                    <input style="padding:10px;" type="file" name="fileToUpload" id="fileToUpload">
+                    <input type="submit" id="submit" value="Upload Image" name="submit">
+            </form>
+        </div>
+        <?php
+            require "footer.php";
+        ?>        
+        <!-- jQuery -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+        <!-- Bootstrap JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </body>
+</html>
+
+
+
+
