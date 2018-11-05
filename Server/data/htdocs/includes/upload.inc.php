@@ -7,7 +7,7 @@
 
     function singleFileUpload(){
         global $conn;
-        global $overall_time;
+        global $Overall_time;
         $target_dir = "../uploads/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         //echo basename($_FILES["fileToUpload"]["name"]);//TestFile.txt

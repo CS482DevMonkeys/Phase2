@@ -39,13 +39,13 @@
                         $("#BulkButtonValue").attr("value", 0);
                         var SingleButtonValue = $("#SingleButtonValue").attr("value");
                         var BulkButtonValue = $("#BulkButtonValue").attr("value");
-                        alert("hiddenInputValue: " + hiddenInputValue + "\nSingleButtonValue: " + SingleButtonValue + "\nBulkButtonValue: " + BulkButtonValue);
+                        //alert("hiddenInputValue: " + hiddenInputValue + "\nSingleButtonValue: " + SingleButtonValue + "\nBulkButtonValue: " + BulkButtonValue);
                     }else if(hiddenInputValue == "BulkButton"){
                         $("#SingleButtonValue").attr("value", 0);
                         $("#BulkButtonValue").attr("value", 1);
                         var SingleButtonValue = $("#SingleButtonValue").attr("value");
                         var BulkButtonValue = $("#BulkButtonValue").attr("value");
-                        alert("hiddenInputValue: " + hiddenInputValue + "\nSingleButtonValue: " + SingleButtonValue + "\nBulkButtonValue: " + BulkButtonValue);
+                        //alert("hiddenInputValue: " + hiddenInputValue + "\nSingleButtonValue: " + SingleButtonValue + "\nBulkButtonValue: " + BulkButtonValue);
                     };
                 });
             });
