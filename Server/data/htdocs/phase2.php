@@ -8,44 +8,39 @@
 
 
 	<?php
-		//Global variables
-		$conn;
 
+		$conn;
+		$overall_time; 
 		function databaseConnection(){
 			#Database connection
 			$servername = "dbclass.cs.nmsu.edu:3306";
 			$username = "dbaldwin";
 			$password = "44kx-7ww";
 			$dbname = "cs482502fa18_dbaldwin";
-
 			//hostname: dbclass.cs.nmsu.edu
 			//databasename :
 			//dbclass.cs.nmsu.edu
-
-
 			// Create connection
 			$GLOBALS['conn'] = mysqli_connect($servername, $username, $password, $dbname);
-	
+
 			// Check connection
 			if (!$GLOBALS['conn']) {	
 				die("Connection failed: " . mysqli_connect_error());
 			}
-
-
 			echo ("<div style='padding:20px;'>Connected successfully</div>");
 			//mysqli_close($GLOBALS['conn']);
 		}
-
 		//Call init function
 		databaseConnection();
 
 		function singleFileUpload(){
+			global $overall_time; 
+
 			$target_dir = "uploads/";
 			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 			//echo basename($_FILES["fileToUpload"]["name"]);//TestFile.txt
 			$uploadOk = 1;
 			$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
 			// Allow certain file formats
 			if($imageFileType != "txt") {
 				echo "Sorry, only txt";
@@ -62,7 +57,6 @@
 					echo "Sorry, there was an error uploading your file.";
 				}
 			}
-
 			//Read File
 			$myfile = fopen($target_file, "r") or die("Unable to open file!");
 			if ($myfile) {
@@ -70,6 +64,7 @@
 				$myFileName = basename($_FILES["fileToUpload"]["name"]);
 				if($myFileName == "Players.txt" || $myFileName == "players.txt" || $myFileName == "player.txt" || $myFileName == "Player.txt"){
 					$lineNum = 1;
+					$time_start = microtime(true);
 					while (($line = fgets($myfile)) !== false) {
 		
 						//split line delimiter of commas
@@ -79,7 +74,6 @@
 						if(sizeof($PlayersAttributes) != 7){
 							throw new Exception("\nError on line " . $lineNum . ' of text file ' . $myFileName . ". Please enter in all attributes of table\n");
 						}
-
 						//Attributes after split
 						$name = $PlayersAttributes[0];
 						$PlayerID = $PlayersAttributes[1];
@@ -88,7 +82,6 @@
 						$touchdowns = $PlayersAttributes[4];
 						$totalyards = $PlayersAttributes[5];
 						$salary = $PlayersAttributes[6];
-
 						//Insert Data
 						$sql = "INSERT INTO Players values (" . "'" . $name . "'" . ","
 															. $PlayerID . "," 
@@ -98,18 +91,20 @@
 															.  $totalyards . "," 
 															.  $salary . ")";
 						if ($GLOBALS['conn']->query($sql) === TRUE) {
-							//echo "<div>New record created successfully</div>";
+							echo "<div>New record created successfully</div>";
 						} else {
 							echo "<div>Error on line "  . $lineNum . ": " . $sql . "<br>" . $GLOBALS['conn']->error . "</div>";
 							break;
 						}
-
 						//Increment line number
 						$lineNum = $lineNum + 1;
-
 					}
+					$time_end = microtime(true);
+					$overall_time = ($time_end - $time_start);
+					echo "Overall Time:" .$overall_time;
 				}else if($myFileName == "Games.txt" || $myFileName == "games.txt" || $myFileName == "Game.txt" || $myFileName == "game.txt"){
 					$lineNum = 1;
+					$time_start = microtime(true);
 					while (($line = fgets($myfile)) !== false) {
 		
 						//split line delimiter of commas
@@ -119,7 +114,6 @@
 						if(sizeof($GamesAttributes) != 6){
 							throw new Exception("\nError on line " . $lineNum . ' of text file ' . $myFileName . ". Please enter in all attributes of table\n");
 						}
-
 						//Attributes after split
 						$GameID = $GamesAttributes[0];
 						$date = $GamesAttributes[1];
@@ -127,7 +121,6 @@
 						$result = $GamesAttributes[3];
 						$attendance = $GamesAttributes[4];
 						$ticket_revenue = $GamesAttributes[5];
-
 						//Insert Data
 						$sql = "INSERT INTO Games values (" . $GameID . ","
 															. "'" . $date . "'" . "," 
@@ -135,20 +128,21 @@
 															. "'" . $result . "'" . "," 
 															. $attendance . "," 
 															. $ticket_revenue . ")";
-
 						if ($GLOBALS['conn']->query($sql) === TRUE) {
 							echo "<div>New record created successfully</div>";
 						} else {
 							echo "<div>Error on line "  . $lineNum . ": " . $sql . "<br>" . $GLOBALS['conn']->error . "</div>";
 							break;
 						}
-
 						//Increment line number
 						$lineNum = $lineNum + 1;
-
-					}				
+					}
+					$time_end = microtime(true);
+					$overall_time = ($time_end-$time_start);
+					echo "Overall Time:" .$overall_time;				
 				}else if($myFileName == "Play.txt" || $myFileName == "play.txt"){
 					$lineNum = 1;
+					$time_start = microtime(true);
 					while (($line = fgets($myfile)) !== false) {
 		
 						//split line delimiter of commas
@@ -158,29 +152,27 @@
 						if(sizeof($PlayAttributes) != 2){
 							throw new Exception("\nError on line " . $lineNum . ' of text file ' . $myFileName . ". Please enter in all attributes of table\n");
 						}
-
 						//Attributes after split
 						$PlayerID = $PlayAttributes[0];
 						$GameID = $PlayAttributes[1];
-
 						//Insert Data
 						$sql = "INSERT INTO Play values (" . $PlayerID . ","
 														    . $GameID . ")";
-
 						if ($GLOBALS['conn']->query($sql) === TRUE) {
 							echo "<div>New record created successfully</div>";
 						} else {
 							echo "<div>Error on line "  . $lineNum . ": " . $sql . "<br>" . $GLOBALS['conn']->error . "</div>";
 							break;
 						}
-
 						//Increment line number
 						$lineNum = $lineNum + 1;
-					}				
+					}
+					$time_end = microtime(true);
+					$overall_time = ($time_end-$time_start);
+					echo "Overall Time:" .$overall_time;					
 				}else{
 					echo "<div> Can't find table </div>";
 				}
-
 				fclose($myfile);
 			} else {
 				// error opening the file.
@@ -188,14 +180,12 @@
 			} 
 		
 		}
-
 		function bulkFileUpload(){
 			$target_dir = "uploads/";
 			$target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
 			//echo basename($_FILES["fileToUpload"]["name"]);//TestFile.txt
 			$uploadOk = 1;
 			$imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
-
 			// Allow certain file formats
 			if($imageFileType != "txt") {
 				echo "Sorry, only txt";
@@ -212,16 +202,15 @@
 					echo "Sorry, there was an error uploading your file.";
 				}
 			}
-
 			//Read File
 			$myfile = fopen($target_file, "r") or die("Unable to open file!");
 			if ($myfile) {
-				echo "Here";
 				//Look at the text file name and check what table it should go include 'file' 
 				$myFileName = basename($_FILES["fileToUpload"]["name"]);
 				if($myFileName == "Players.txt" || $myFileName == "players.txt" || $myFileName == "player.txt" || $myFileName == "Player.txt"){
 					$lineNum = 1;
 					$sql = "INSERT INTO Players (name, PlayerID, team_name, position, touchdowns, totalyards, salary) VALUES ";
+					$time_start = microtime(true);
 					while (($line = fgets($myfile)) !== false) {
 		
 						//split line delimiter of commas
@@ -231,7 +220,6 @@
 						if(sizeof($PlayersAttributes) != 7){
 							throw new Exception("\nError on line " . $lineNum . ' of text file ' . $myFileName . ". Please enter in all attributes of table\n");
 						}
-
 						//Attributes after split
 						$name = $PlayersAttributes[0];
 						$PlayerID = $PlayersAttributes[1];
@@ -240,7 +228,6 @@
 						$touchdowns = $PlayersAttributes[4];
 						$totalyards = $PlayersAttributes[5];
 						$salary = $PlayersAttributes[6];
-
 						//Insert Data
 						$sql = $sql . "('" . $name . "'" . ","
 															. $PlayerID . "," 
@@ -249,22 +236,23 @@
 															. $touchdowns . "," 
 															.  $totalyards . "," 
 															.  $salary . "),";
-
-
 						//Increment line number
 						$lineNum = $lineNum + 1;
-
 					}
 					$sql = substr_replace($sql, ";", (strlen($sql) - 1));
 					//echo ($sql);
 					if ($GLOBALS['conn']->query($sql) === TRUE) {
-						//echo "<div>New record created successfully</div>";
+						echo "<div>New record created successfully</div>";
 					} else {
-						echo "<div>Error: " . "<br>" . $GLOBALS['conn']->error . "</div>";
+						echo "<div>Error: " . $sql . "<br>" . $GLOBALS['conn']->error . "</div>";
 					}
+					$time_end = microtime(true);
+					$overall_time = ($time_end-$time_start);
+					echo "Overall Time:" .$overall_time;	
 				}else if($myFileName == "Games.txt" || $myFileName == "games.txt" || $myFileName == "Game.txt" || $myFileName == "game.txt"){
 					$lineNum = 1;
 					$sql = "INSERT INTO Games (GameID, date, stadium, result, attendance, ticket_revenue) VALUES ";
+					$time_start = microtime(true);
 					while (($line = fgets($myfile)) !== false) {
 		
 						//split line delimiter of commas
@@ -274,15 +262,13 @@
 						if(sizeof($GamesAttributes) != 6){
 							throw new Exception("\nError on line " . $lineNum . ' of text file ' . $myFileName . ". Please enter in all attributes of table\n");
 						}
-
 						//Attributes after split
 						$GameID = $GamesAttributes[0];
 						$date = $GamesAttributes[1];
-						$stadium = $GamesAttributes[2];   
+						$stadium = $GamesAttributes[2];
 						$result = $GamesAttributes[3];
 						$attendance = $GamesAttributes[4];
 						$ticket_revenue = $GamesAttributes[5];
-
 						//Insert Data
 						$sql = $sql . "(" . $GameID . ","
 															. "'" . $date . "'" . "," 
@@ -290,10 +276,8 @@
 															. "'" . $result . "'" . "," 
 															. $attendance . "," 
 															. $ticket_revenue . "),";
-
 						//Increment line number
 						$lineNum = $lineNum + 1;
-
 					}
 					$sql = substr_replace($sql, ";", (strlen($sql) - 1));
 					//echo ($sql);
@@ -302,9 +286,13 @@
 					} else {
 						echo "<div>Error: " . $sql . "<br>" . $GLOBALS['conn']->error . "</div>";
 					}
+					$time_end = microtime(true);
+					$overall_time = ($time_end-$time_start);
+					echo "Overall Time:" .$overall_time;	
 				}else if($myFileName == "Play.txt" || $myFileName == "play.txt"){
 					$lineNum = 1;
 					$sql = "INSERT INTO Play (PlayerID, GameID) VALUES ";
+					$time_start = microtime(true);
 					while (($line = fgets($myfile)) !== false) {
 		
 						//split line delimiter of commas
@@ -314,17 +302,12 @@
 						if(sizeof($PlayAttributes) != 2){
 							throw new Exception("\nError on line " . $lineNum . ' of text file ' . $myFileName . ". Please enter in all attributes of table\n");
 						}
-
 						//Attributes after split
 						$PlayerID = $PlayAttributes[0];
 						$GameID = $PlayAttributes[1];
-
 						//Insert Data
 						$sql = $sql . "(" . $PlayerID . ","
 										  . $GameID . "),";
-
-
-
 						//Increment line number
 						$lineNum = $lineNum + 1;
 					}
@@ -333,11 +316,13 @@
 						echo "<div>New record created successfully</div>";
 					} else {
 						echo "<div>Error: " . $sql . "<br>" . $GLOBALS['conn']->error . "</div>";
-					}				
+					}
+					$time_end = microtime(true);
+					$overall_time = ($time_end-$time_start);
+					echo "Overall Time:" .$overall_time;					
 				}else{
 					echo "<div> Can't find table </div>";
 				}
-
 				fclose($myfile);
 			} else {
 				// error opening the file.
@@ -345,7 +330,6 @@
 			} 
 		
 		}
-
 		function deleteAllPlayers(){
 		//confirm('Are you sure you want to delete all of Players? This is not reversable.')
 			$sql = "DELETE FROM Players";
@@ -355,7 +339,6 @@
 				echo "Error deleting record: " . $conn->error;
 			}	
 		}
-
 		function deleteAllPlays(){
 		//confirm('Are you sure you want to delete all of Players? This is not reversable.')
 			$sql = "DELETE FROM Play";
@@ -365,7 +348,6 @@
 				echo "Error deleting record: " . $conn->error;
 			}	
 		}
-
 		function deleteAllGames(){
 		//confirm('Are you sure you want to delete all of Players? This is not reversable.')
 			$sql = "DELETE FROM Games";
@@ -375,11 +357,9 @@
 				echo "Error deleting record: " . $conn->error;
 			}	
 		}
-
 		if(isset($_POST['submit'])){ // button name
 			echo("Entered POST function: submit");
 			var_dump($_POST);
-
 			if(isset($_POST["BulkButtonValue"]) && $_POST["BulkButtonValue"] == 1){
 				
 				//Then Call method to do bulk insertion
@@ -394,7 +374,6 @@
 			
 			echo("Finished POST function: submit");
 		}
-
 		function executeSqlQuery($sql){
 			echo("Entered executeSqlQuery function");
 			echo($sql);
@@ -412,12 +391,9 @@
 				}
 				/* free result set */
 				mysqli_free_result($result);
-			}else{
-				echo("<div style='padding:50px;'>Error: " . mysqli_error($GLOBALS['conn']) . "</div>");
 			}
 			echo("Exit executeSqlQuery function");
 		}
-
 		//sqlQueryTextFieldSubmit
 		if(isset($_POST['sqlQueryTextFieldSubmit'])){ // button name
 			if(isset($_POST["sqlQueryTextField"])){
@@ -434,7 +410,6 @@
 		if(isset($_POST['deleteGames'])){ // button name
 			deleteAllGames();
 		}
-
 		mysqli_close($GLOBALS['conn']);
 	?>
 
@@ -446,7 +421,6 @@
 			$(this).addClass("active");
 			$(".btn-group > .btn").attr("value", 0);
 			$(this).attr("value", 1);
-
 			var hiddenInputValue = $(this).attr("id");
 			if(hiddenInputValue == "SingleButton"){
 				$("#SingleButtonValue").attr("value", 1);
@@ -467,7 +441,7 @@
 
 	<!-- File upload-->
 	<div id="outerContainer">
-	<form action="phase2.php" method="post" enctype="multipart/form-data">
+	    <form action="phase2.php" method="post" enctype="multipart/form-data">
 			<div class="btn-group" style="padding:20px;">
 				<button type="button" id="BulkButton" name="BulkButton" class="btn btn-primary active" value="0">Bulk Loading</button>
 				<button type="button" id="SingleButton" name="SingleButton" class="btn btn-primary" value="1">Single Insertion</button>
@@ -507,5 +481,7 @@
 
 		</form>
 	</div>
+		
+
 </body>
 </html>

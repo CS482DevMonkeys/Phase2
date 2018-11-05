@@ -9,7 +9,7 @@
 
         <!-- Bootstrap CSS -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
-
+        <link rel="stylesheet" href="styles/index.css">
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -26,6 +26,13 @@
                 <h1>Phase 2 Project</h1>
                 <p>This Web application will include the ability to upload,delete,search the database</p>
             </div>
+        </div>
+
+        <div class ="container main">
+            <h1>Developed by:</h1>
+            <p>Destoni Baldwin</p>
+            <p>Jose Luis Avila Jaquin</p>
+            <p>Sebastian Martinez-Estrade</p>
         </div>
         
 

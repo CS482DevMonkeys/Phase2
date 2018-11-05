@@ -1,4 +1,6 @@
-
+<?php
+ include "includes/upload.inc.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -9,6 +11,7 @@
 
         <!-- Bootstrap CSS -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="styles/upload.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -20,6 +23,7 @@
     <body>
         <?php
             require "header.php";
+            
         ?>
         <script>
             $(document).ready(function(){
@@ -47,40 +51,41 @@
             });
         </script>
     
-        <div class="container">
+       
         <h1 class="text-center">Upload</h1>
             <?php
+                
                  if(isset($_GET['upload_success1'])){
-                    echo '<div>New record created successfully, Overalltime: $overall_time</div>';
+                    echo '<div>New record created successfully, Overalltime:'. $overall_time. '</div>';
                 }
                 else if(isset($_GET['upload_success2'])){
-                    echo '<div>New record created successfully Overall time: $overall_time</div>';
+                    echo '<div>New record created successfully, Overalltime:'. $overall_time. '</div>';
                 }
                 else if(isset($_GET['upload_success3'])){
-                    echo '<div>New record created successfully Overall time: $overall_time</div>';
+                    echo '<div>New record created successfully, Overalltime:'. $overall_time. '</div>';
                 }  
                 else if(isset($_GET['buckload_success1'])){
-                    echo '<div>New record created successfully Overall time: $overall_time</div>';
+                    echo '<div>New record created successfully, Overalltime:'. $overall_time. '</div>';
                 }  
                 else if(isset($_GET['buckload_success2'])){
-                    echo '<div>New record created successfully Overall time: $overall_time</div>';
+                    echo '<div>New record created successfully, Overalltime:'. $overall_time. '</div>';
                 }  
                 else if(isset($_GET['buckload_success3'])){
-                    echo '<div>New record created successfully Overall time: $overall_time</div>';
+                    echo '<div>New record created successfully, Overalltime:'. $overall_time. '</div>';
                 }  
             ?>
-            <form action="includes/upload.inc.php" method="post" enctype="multipart/form-data">
-                <div class="btn-group" style="padding:20px;">
-                        <button type="button" id="BulkButton" name="BulkButton" class="btn btn-primary active" value="0">Bulk Loading</button>
+            <form class="container" action="includes/upload.inc.php" method="post" enctype="multipart/form-data">
+                <div class="btn-group">
+                        <button type="button" id="BulkButton" name="BulkButton" class="btn btn-primary" value="0">Bulk Loading</button>
                         <button type="button" id="SingleButton" name="SingleButton" class="btn btn-primary" value="1">Single Insertion</button>
                         
                 </div>
                 <input type="hidden" id="SingleButtonValue" name="SingleButtonValue" value="1" />
                     <input type="hidden" id="BulkButtonValue" name="BulkButtonValue" value="0" />
                 
-                    Select image to upload:
-                    <input style="padding:10px;" type="file" name="fileToUpload" id="fileToUpload">
-                    <input type="submit" id="submit" value="Upload Image" name="submit">
+                    <p style="margin:0 auto;color: white;">Select image to upload:</p>
+                    <input style="padding:10px;color: white;" type="file" name="fileToUpload" id="fileToUpload">
+                    <input  type="submit" id="submit" value="Upload Image" name="submit">
             </form>
         </div>
         <?php

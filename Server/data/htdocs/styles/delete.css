@@ -1,0 +1,17 @@
+body{
+    background: url(https://images.unsplash.com/photo-1520298064646-747b5051dbb2?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=3fe3da5ea3571650f9ae170ad3e22251&auto=format&fit=crop&w=3153&q=80);
+    background-size: cover;
+}
+
+.header{
+    text-align: center;
+    
+}
+.title{
+    color:white;
+
+}
+
+.response{
+    color: white;
+}

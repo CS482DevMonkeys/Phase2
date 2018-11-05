@@ -8,7 +8,7 @@
     function singleFileUpload(){
         global $conn;
         global $overall_time;
-        $target_dir = "uploads/";
+        $target_dir = "../uploads/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         //echo basename($_FILES["fileToUpload"]["name"]);//TestFile.txt
         $uploadOk = 1;
@@ -64,8 +64,8 @@
                                                         .  $salary . ")";
                     if ($conn ->query($sql) === TRUE) {
                         //echo "<div>New record created successfully</div>";
-                        header("Location: ../index.php?upload_success1");
-                    } else {
+                        header("Location: ../upload.php?upload_success1");
+                    } else{
                         echo "<div>Error on line "  . $lineNum . ": " . $sql . "<br>" . $conn ->error . "</div>";
                         break;
                     }
@@ -102,7 +102,7 @@
                                                         . $ticket_revenue . ")";
                     if ($conn ->query($sql) === TRUE) {
                         //echo "<div>New record created successfully</div>";
-                        header("Location: ../index.php?upload_success2");
+                        header("Location: ../upload.php?upload_success2");
                     } else {
                         echo "<div>Error on line "  . $lineNum . ": " . $sql . "<br>" . $conn ->error . "</div>";
                         break;
@@ -132,7 +132,7 @@
                                                         . $GameID . ")";
                     if ($conn ->query($sql) === TRUE) {
                         //echo "<div>New record created successfully</div>";
-                        header("Location: ../index.php?upload_success3");
+                        header("Location: ../upload.php?upload_success3");
                         
                     } else {
                         echo "<div>Error on line "  . $lineNum . ": " . $sql . "<br>" . $conn ->error . "</div>";
@@ -158,7 +158,7 @@
     function bulkFileUpload(){
         global $conn;
         global $overall_time;
-        $target_dir = "uploads/";
+        $target_dir = "../uploads/";
         $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
         //echo basename($_FILES["fileToUpload"]["name"]);//TestFile.txt
         $uploadOk = 1;
@@ -223,7 +223,7 @@
                 //echo ($sql);
                 if ($conn ->query($sql) === TRUE) {
                    // echo "<div>New record created successfully</div>";
-                    header("Location: ../index.php?buckload_success1");
+                    header("Location: ../upload.php?buckload_success1");
                 } else {
                     echo "<div>Error: " . $sql . "<br>" . $conn ->error . "</div>";
                 }
@@ -263,7 +263,7 @@
                 $sql = substr_replace($sql, ";", (strlen($sql) - 1));
                 //echo ($sql);
                 if ($conn ->query($sql) === TRUE) {
-                    header("Location: ../index.php?buckload_success2");
+                    header("Location: ../upload.php?buckload_success2");
                     //echo "<div>New record created successfully</div>";
                 } else {
                     echo "<div>Error: " . $sql . "<br>" . $conn ->error . "</div>";
@@ -296,7 +296,7 @@
 
                 $sql = substr_replace($sql, ";", (strlen($sql) - 1));
                 if ($conn ->query($sql) === TRUE) {
-                    header("Location: ../index.php?buckload_success3");
+                    header("Location: ../upload.php?buckload_success3");
                     //echo "<div>New record created successfully</div>";
                 } else {
                     echo "<div>Error: " . $sql . "<br>" . $conn ->error . "</div>";

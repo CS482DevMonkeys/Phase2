@@ -9,6 +9,7 @@
 
         <!-- Bootstrap CSS -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="styles/delete.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -22,17 +23,18 @@
             require "header.php";
         ?>
         <div class="container"> 
-            <h1 class="text-center">Delete</h1>
+            <h1 class="header"><a class="title" href="delete.php">Delete</a></h1>
             <?php
                 
                 if(isset($_GET['delete_players'])){
-                    echo '<div> <p>Deleted all row in Players!</p></div>';
+                    echo '<div class = "response"> <h2>Deleted all row in Players!</h2></div>';
+                    
                 }
                 else if(isset($_GET['delete_play'])){
-                    echo '<div> <p>Deleted all rows in Plays!</p></div>';
+                    echo '<div class = "response"> <h2>Deleted all rows in Plays!</h2></div>';
                 }
                 else if(isset($_GET['delete_games'])){
-                    echo '<div> <p>Deleted all rows in Games!</p></div>';
+                    echo '<div class = "response"> <h2>Deleted all rows in Games!</h2></div>';
                 }  
             ?>
             <!-- <form action="includes/delete.inc.php" method="post" enctype="multipart/form-data"> -->

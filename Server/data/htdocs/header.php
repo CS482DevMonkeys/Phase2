@@ -9,6 +9,7 @@
 
         <!-- Bootstrap CSS -->
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="styles/header.css">
 
         <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -31,9 +32,10 @@
             </div>
         
             <!-- Collect the nav links, forms, and other content for toggling -->
+           
             <div class="collapse navbar-collapse navbar-ex1-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="active"><a href="upload.php">Upload</a></li>
+                    <li><a href="upload.php">Upload</a></li>
                     <li><a href="delete.php">Delete</a></li>
                     <li><a href="search.php">Search</a></li>
                 </ul>

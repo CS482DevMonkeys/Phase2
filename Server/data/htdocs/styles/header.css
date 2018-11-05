@@ -1,0 +1,20 @@
+.navbar{
+    background:#2c3e50; 
+    color: white; 
+}
+
+.navbar-default .navbar-brand{
+    color: white; 
+}
+
+.navbar-default .navbar-nav>li>a{
+    color: white; 
+}
+
+.navbar-default .navbar-nav>li>a:focus, .navbar-default .navbar-nav>li>a:hover{
+    color: rgb(96, 255, 157); 
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover{
+    color: rgb(96, 255, 157); 
+}
